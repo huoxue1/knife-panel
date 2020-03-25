@@ -34,6 +34,8 @@ github.com/casbin/casbin/v2/util
 github.com/davecgh/go-spew/spew
 # github.com/dgrijalva/jwt-go v3.2.0+incompatible
 github.com/dgrijalva/jwt-go
+# github.com/fatih/structs v1.1.0
+github.com/fatih/structs
 # github.com/gin-contrib/cors v1.3.0
 github.com/gin-contrib/cors
 # github.com/gin-contrib/sse v0.1.0

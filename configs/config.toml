@@ -13,7 +13,7 @@ store = "gorm"
 # http配置
 [http]
 # http监听地址
-host = "0.0.0.0"
+host = "127.0.0.1"
 # http监听端口
 port = 10088
 # 证书路径
