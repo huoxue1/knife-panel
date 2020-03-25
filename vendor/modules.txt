@@ -9,6 +9,8 @@ github.com/LyricTian/captcha
 github.com/LyricTian/captcha/store
 # github.com/LyricTian/queue v1.2.0
 github.com/LyricTian/queue
+# github.com/NYTimes/gziphandler v1.1.1
+github.com/NYTimes/gziphandler
 # github.com/PuerkitoBio/purell v1.1.0
 github.com/PuerkitoBio/purell
 # github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578
@@ -74,6 +76,8 @@ github.com/google/gops/internal
 github.com/google/gops/signal
 # github.com/google/uuid v1.1.1
 github.com/google/uuid
+# github.com/gorilla/websocket v1.4.2
+github.com/gorilla/websocket
 # github.com/jinzhu/gorm v1.9.11
 github.com/jinzhu/gorm
 github.com/jinzhu/gorm/dialects/mysql
@@ -87,6 +91,8 @@ github.com/json-iterator/go
 github.com/kardianos/osext
 # github.com/konsorten/go-windows-terminal-sequences v1.0.1
 github.com/konsorten/go-windows-terminal-sequences
+# github.com/kr/pty v1.1.1
+github.com/kr/pty
 # github.com/leodido/go-urn v1.1.0
 github.com/leodido/go-urn
 # github.com/lib/pq v1.1.1

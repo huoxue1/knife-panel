@@ -6,17 +6,21 @@ require (
 	github.com/BurntSushi/toml v0.3.1
 	github.com/LyricTian/captcha v1.1.0
 	github.com/LyricTian/queue v1.2.0
+	github.com/NYTimes/gziphandler v1.1.1
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 	github.com/casbin/casbin/v2 v2.1.2
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/elazarl/go-bindata-assetfs v1.0.0 // indirect
 	github.com/gin-contrib/cors v1.3.0
 	github.com/gin-gonic/gin v1.5.0
 	github.com/go-redis/redis v6.15.6+incompatible
 	github.com/go-redis/redis_rate v6.5.0+incompatible
 	github.com/google/gops v0.3.6
 	github.com/google/uuid v1.1.1
+	github.com/gorilla/websocket v1.4.2
 	github.com/jinzhu/gorm v1.9.11
 	github.com/json-iterator/go v1.1.8
+	github.com/kr/pty v1.1.1
 	github.com/pkg/errors v0.8.1
 	github.com/sirupsen/logrus v1.4.2
 	github.com/stretchr/testify v1.4.0
