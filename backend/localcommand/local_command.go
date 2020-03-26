@@ -1,13 +1,14 @@
 package localcommand
 
 import (
+	"fmt"
 	"os"
 	"os/exec"
 	"syscall"
 	"time"
 	"unsafe"
 
-	"github.com/kr/pty"
+	"github.com/creack/pty"
 	"github.com/pkg/errors"
 )
 
@@ -58,10 +59,11 @@ func New(command string, argv []string, options ...Option) (*LocalCommand, error
 	// close pty so that Read() on the pty breaks with an EOF.
 	go func() {
 		defer func() {
+			fmt.Println("close pty")
 			lcmd.pty.Close()
 			close(lcmd.ptyClosed)
 		}()
-
+		fmt.Println("cmd wait")
 		lcmd.cmd.Wait()
 	}()
 

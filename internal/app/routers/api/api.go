@@ -183,7 +183,7 @@ func processWSConn(ctx context.Context, conn *websocket.Conn) error {
 	if err := utils.ApplyDefaultValues(backendOptions); err != nil {
 		os.Exit(1)
 	}
-	factory, err := localcommand.NewFactory("top", nil, backendOptions)
+	factory, err := localcommand.NewFactory("bash", nil, backendOptions)
 	if err != nil {
 		os.Exit(3)
 	}
