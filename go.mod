@@ -28,5 +28,6 @@ require (
 	github.com/swaggo/swag v1.6.3
 	github.com/tidwall/buntdb v1.1.2
 	go.uber.org/dig v1.8.0
+	golang.org/x/crypto v0.0.0-20190325154230-a5d413f7728c
 	golang.org/x/time v0.0.0-20191024005414-555d28b269f0
 )

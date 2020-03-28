@@ -31,8 +31,8 @@ type LocalCommand struct {
 
 func New(command string, argv []string, options ...Option) (*LocalCommand, error) {
 	cmd := exec.Command(command, argv...)
-
-	pty, err := pty.Start(cmd)
+	cmd.Env = append(os.Environ(), "TERM=xterm")
+	shell, err := pty.Start(cmd)
 	if err != nil {
 		// todo close cmd?
 		return nil, errors.Wrapf(err, "failed to start command `%s`", command)
@@ -47,7 +47,7 @@ func New(command string, argv []string, options ...Option) (*LocalCommand, error
 		closeTimeout: DefaultCloseTimeout,
 
 		cmd:       cmd,
-		pty:       pty,
+		pty:       shell,
 		ptyClosed: ptyClosed,
 	}
 
@@ -60,8 +60,10 @@ func New(command string, argv []string, options ...Option) (*LocalCommand, error
 	go func() {
 		defer func() {
 			fmt.Println("close pty")
+			fmt.Println("cmd wait")
+			lcmd.cmd.Process.Kill()
+
 			lcmd.pty.Close()
-			close(lcmd.ptyClosed)
 		}()
 		fmt.Println("cmd wait")
 		lcmd.cmd.Wait()

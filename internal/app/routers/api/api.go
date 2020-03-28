@@ -175,10 +175,14 @@ func processWSConn(ctx context.Context, conn *websocket.Conn) error {
 	//if typ != websocket.TextMessage {
 	//	return errors.New("failed to authenticate websocket connection: invalid message type")
 	//}
-	appOptions := &server.Options{}
-	if err := utils.ApplyDefaultValues(appOptions); err != nil {
-		os.Exit(1)
-	}
+	//appOptions := &server.Options{
+	//	PermitWrite: true,
+	//	Width:       1200,
+	//	Height:      600,
+	//}
+	//if err := utils.ApplyDefaultValues(appOptions); err != nil {
+	//	os.Exit(1)
+	//}
 	backendOptions := &localcommand.Options{}
 	if err := utils.ApplyDefaultValues(backendOptions); err != nil {
 		os.Exit(1)
@@ -202,6 +206,9 @@ func processWSConn(ctx context.Context, conn *websocket.Conn) error {
 
 	opts := []webtty.Option{
 		webtty.WithWindowTitle([]byte("hello world")),
+		webtty.WithPermitWrite(),
+		webtty.WithFixedColumns(600),
+		webtty.WithFixedRows(300),
 	}
 	//if server.options.PermitWrite {
 	//	opts = append(opts, webtty.WithPermitWrite())

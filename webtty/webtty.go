@@ -39,7 +39,7 @@ func New(masterConn Master, slave Slave, options ...Option) (*WebTTY, error) {
 		slave:      slave,
 
 		permitWrite: true,
-		columns:     300,
+		columns:     600,
 		rows:        300,
 
 		bufferSize: 1024,
@@ -77,6 +77,7 @@ func (wt *WebTTY) Run(ctx context.Context) error {
 
 				err = wt.handleSlaveReadEvent(buffer[:n])
 				if err != nil {
+					fmt.Println("error ---")
 					return err
 				}
 			}
@@ -135,10 +136,11 @@ func (wt *WebTTY) sendInitializeMessage() error {
 
 func (wt *WebTTY) handleSlaveReadEvent(data []byte) error {
 	//safeMessage := base64.StdEncoding.EncodeToString(data)
-	err := wt.masterWrite(append([]byte{Output}, []byte(data)...))
+	err := wt.masterWrite([]byte(string(data)))
 	if err != nil {
 		return errors.Wrapf(err, "failed to send message to master")
 	}
+	fmt.Println("send successfully")
 
 	return nil
 }

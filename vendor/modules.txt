@@ -147,6 +147,8 @@ github.com/ugorji/go/codec
 go.uber.org/dig
 go.uber.org/dig/internal/digreflect
 go.uber.org/dig/internal/dot
+# golang.org/x/crypto v0.0.0-20190325154230-a5d413f7728c
+golang.org/x/crypto/ssh/terminal
 # golang.org/x/lint v0.0.0-20190930215403-16217165b5de
 golang.org/x/lint
 golang.org/x/lint/golint
@@ -154,6 +156,7 @@ golang.org/x/lint/golint
 golang.org/x/net/idna
 # golang.org/x/sys v0.0.0-20190813064441-fde4db37ae7a
 golang.org/x/sys/unix
+golang.org/x/sys/windows
 # golang.org/x/text v0.3.2
 golang.org/x/text/secure/bidirule
 golang.org/x/text/transform
