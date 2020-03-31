@@ -156,9 +156,10 @@ export default {
       target: 'http://127.0.0.1:10088/',
       changeOrigin: true,
     },
-    '/ws': {
-      target: 'ws://127.0.0.1:10088',
+    '/ws/': {
+      target: 'http://127.0.0.1:10088/',
       logLevel: 'debug',
+      changeOrigin: true,
       ws: true
     },
   },

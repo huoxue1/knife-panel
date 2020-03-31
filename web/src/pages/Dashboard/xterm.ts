@@ -2,7 +2,7 @@ import {Terminal} from 'xterm';
 import {FitAddon} from 'xterm-addon-fit';
 import 'xterm/css/xterm.css'
 
-const bare = new Terminal();
+const bare = new Terminal({disableStdin:false});
 const fitAddon = new FitAddon();
 bare.loadAddon(fitAddon);
 
@@ -46,6 +46,7 @@ export class Xterm {
   };
 
   output(data: string) {
+    console.log("output:--->:"+data)
     this.term.write(data);
   };
 

@@ -133,8 +133,7 @@ func (wt *WebTTY) sendInitializeMessage() error {
 }
 
 func (wt *WebTTY) handleSlaveReadEvent(data []byte) error {
-	//safeMessage := base64.StdEncoding.EncodeToString(data)
-	err := wt.masterWrite(data)
+	err := wt.masterWrite(append([]byte{Output}, data...))
 	if err != nil {
 		return errors.Wrapf(err, "failed to send message to master")
 	}

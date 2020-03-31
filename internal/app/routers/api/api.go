@@ -112,16 +112,6 @@ func RegisterRouter(app *gin.Engine, container *dig.Container) error {
 			}
 		}
 
-		ws := g.Group("/ws")
-		{
-			tty := ws.Group("/tty")
-			{
-				tty.GET("/", func(ctx *gin.Context) {
-
-				})
-			}
-		}
-
 		return nil
 	})
 

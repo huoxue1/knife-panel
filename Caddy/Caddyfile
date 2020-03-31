@@ -1,0 +1,8 @@
+localhost:80 {
+	proxy /api/ http://localhost:10088
+    proxy /ws/ http://localhost:10088 {
+		websocket
+		transparent
+	}
+    proxy / http://localhost:3000
+}
