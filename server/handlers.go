@@ -3,37 +3,25 @@ package server
 import (
 	"bytes"
 	"context"
-	"encoding/json"
 	"fmt"
+	"github.com/gorilla/websocket"
+	"github.com/pkg/errors"
 	"knife-panel/webtty"
 	"log"
 	"net/http"
-	"net/url"
-	"sync/atomic"
-
-	"github.com/gorilla/websocket"
-	"github.com/pkg/errors"
 )
 
-func (server *Server) generateHandleWS(ctx context.Context, cancel context.CancelFunc, counter *counter) http.HandlerFunc {
-	once := new(int64)
+func (server *Server) generateHandleWS(ctx context.Context, counter *counter) http.HandlerFunc {
 
 	go func() {
 		select {
 		case <-counter.timer().C:
-			cancel()
+			//cancel()
 		case <-ctx.Done():
 		}
 	}()
 
 	return func(w http.ResponseWriter, r *http.Request) {
-		if server.options.Once {
-			success := atomic.CompareAndSwapInt64(once, 0, 1)
-			if !success {
-				http.Error(w, "Server is shutting down", http.StatusServiceUnavailable)
-				return
-			}
-		}
 
 		num := counter.add(1)
 		closeReason := "unknown reason"
@@ -44,10 +32,6 @@ func (server *Server) generateHandleWS(ctx context.Context, cancel context.Cance
 				"Connection closed by %s: %s, connections: %d/%d",
 				closeReason, r.RemoteAddr, num, server.options.MaxConnection,
 			)
-
-			if server.options.Once {
-				cancel()
-			}
 		}()
 
 		if int64(server.options.MaxConnection) != 0 {
@@ -87,59 +71,16 @@ func (server *Server) generateHandleWS(ctx context.Context, cancel context.Cance
 }
 
 func (server *Server) processWSConn(ctx context.Context, conn *websocket.Conn) error {
-	typ, initLine, err := conn.ReadMessage()
-	if err != nil {
-		return errors.Wrapf(err, "failed to authenticate websocket connection")
-	}
-	if typ != websocket.TextMessage {
-		return errors.New("failed to authenticate websocket connection: invalid message type")
-	}
 
-	var init InitMessage
-	err = json.Unmarshal(initLine, &init)
-	if err != nil {
-		return errors.Wrapf(err, "failed to authenticate websocket connection")
-	}
-	if init.AuthToken != server.options.Credential {
-		return errors.New("failed to authenticate websocket connection")
-	}
-
-	queryPath := "?"
-	if server.options.PermitArguments && init.Arguments != "" {
-		queryPath = init.Arguments
-	}
-
-	query, err := url.Parse(queryPath)
-	if err != nil {
-		return errors.Wrapf(err, "failed to parse arguments")
-	}
-	params := query.Query()
 	var slave Slave
-	slave, err = server.factory.New(params)
+	slave, err := server.factory.New(nil)
 	if err != nil {
 		return errors.Wrapf(err, "failed to create backend")
 	}
 	defer slave.Close()
 
-	titleVars := server.titleVariables(
-		[]string{"server", "master", "slave"},
-		map[string]map[string]interface{}{
-			"server": server.options.TitleVariables,
-			"master": map[string]interface{}{
-				"remote_addr": conn.RemoteAddr(),
-			},
-			"slave": slave.WindowTitleVariables(),
-		},
-	)
-
-	titleBuf := new(bytes.Buffer)
-	err = server.titleTemplate.Execute(titleBuf, titleVars)
-	if err != nil {
-		return errors.Wrapf(err, "failed to fill window title template")
-	}
-
 	opts := []webtty.Option{
-		webtty.WithWindowTitle(titleBuf.Bytes()),
+		webtty.WithWindowTitle([]byte("hello World")),
 	}
 	if server.options.PermitWrite {
 		opts = append(opts, webtty.WithPermitWrite())
@@ -157,7 +98,7 @@ func (server *Server) processWSConn(ctx context.Context, conn *websocket.Conn) e
 		opts = append(opts, webtty.WithMasterPreferences(server.options.Preferences))
 	}
 
-	tty, err := webtty.New(&WsWrapper{conn}, slave, opts...)
+	tty, err := webtty.New(&wsWrapper{conn}, slave, opts...)
 	if err != nil {
 		return errors.Wrapf(err, "failed to create webtty")
 	}

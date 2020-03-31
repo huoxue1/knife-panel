@@ -4,11 +4,11 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-type WsWrapper struct {
+type wsWrapper struct {
 	*websocket.Conn
 }
 
-func (wsw *WsWrapper) Write(p []byte) (n int, err error) {
+func (wsw *wsWrapper) Write(p []byte) (n int, err error) {
 	writer, err := wsw.Conn.NextWriter(websocket.TextMessage)
 	if err != nil {
 		return 0, err
@@ -17,7 +17,7 @@ func (wsw *WsWrapper) Write(p []byte) (n int, err error) {
 	return writer.Write(p)
 }
 
-func (wsw *WsWrapper) Read(p []byte) (n int, err error) {
+func (wsw *wsWrapper) Read(p []byte) (n int, err error) {
 	for {
 		msgType, reader, err := wsw.Conn.NextReader()
 		if err != nil {

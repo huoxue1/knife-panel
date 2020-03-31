@@ -4,15 +4,17 @@ import (
 	"context"
 	"crypto/tls"
 	"fmt"
+	"knife-panel/internal/app/routers/api/ctl"
+	"knife-panel/internal/app/ws"
 	"net/http"
 	"time"
 
+	"github.com/gin-gonic/gin"
+	"go.uber.org/dig"
 	"knife-panel/internal/app/config"
 	"knife-panel/internal/app/middleware"
 	"knife-panel/internal/app/routers/api"
 	"knife-panel/pkg/logger"
-	"github.com/gin-gonic/gin"
-	"go.uber.org/dig"
 )
 
 // InitWeb 初始化web引擎
@@ -40,8 +42,16 @@ func InitWeb(container *dig.Container) *gin.Engine {
 		app.Use(middleware.CORSMiddleware())
 	}
 
+	err := ctl.Inject(container)
+
+	handleError(err)
+
 	// 注册/api路由
-	err := api.RegisterRouter(app, container)
+	err = api.RegisterRouter(app, container)
+
+	//注册/ws路由
+	err = ws.RegisterRouter(app, container)
+
 	handleError(err)
 
 	// swagger文档

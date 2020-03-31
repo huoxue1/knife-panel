@@ -1,7 +1,6 @@
 package localcommand
 
 import (
-	"fmt"
 	"os"
 	"os/exec"
 	"syscall"
@@ -31,8 +30,8 @@ type LocalCommand struct {
 
 func New(command string, argv []string, options ...Option) (*LocalCommand, error) {
 	cmd := exec.Command(command, argv...)
-	cmd.Env = append(os.Environ(), "TERM=xterm")
-	shell, err := pty.Start(cmd)
+
+	pty, err := pty.Start(cmd)
 	if err != nil {
 		// todo close cmd?
 		return nil, errors.Wrapf(err, "failed to start command `%s`", command)
@@ -47,7 +46,7 @@ func New(command string, argv []string, options ...Option) (*LocalCommand, error
 		closeTimeout: DefaultCloseTimeout,
 
 		cmd:       cmd,
-		pty:       shell,
+		pty:       pty,
 		ptyClosed: ptyClosed,
 	}
 
@@ -59,13 +58,10 @@ func New(command string, argv []string, options ...Option) (*LocalCommand, error
 	// close pty so that Read() on the pty breaks with an EOF.
 	go func() {
 		defer func() {
-			fmt.Println("close pty")
-			fmt.Println("cmd wait")
-			lcmd.cmd.Process.Kill()
-
 			lcmd.pty.Close()
+			close(lcmd.ptyClosed)
 		}()
-		fmt.Println("cmd wait")
+
 		lcmd.cmd.Wait()
 	}()
 
