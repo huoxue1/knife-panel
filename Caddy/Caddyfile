@@ -4,5 +4,5 @@ localhost:80 {
 		websocket
 		transparent
 	}
-    proxy / http://localhost:3000
+    proxy / http://localhost:8000
 }

@@ -26,12 +26,6 @@ const plugins: IPlugin[] = [
           },
         }
         : false,
-      // default close dll, because issue https://github.com/ant-design/ant-design-pro/issues/4665
-      // dll features https://webpack.js.org/plugins/dll-plugin/
-      // dll: {
-      //   include: ['dva', 'dva/router', 'dva/saga', 'dva/fetch'],
-      //   exclude: ['@babel/runtime', 'netlify-lambda'],
-      // },
       dll: true,
     },
   ],
@@ -151,16 +145,4 @@ export default {
     basePath: '/',
   },
   chainWebpack: webpackPlugin,
-  proxy: {
-    '/api/': {
-      target: 'http://127.0.0.1:10088/',
-      changeOrigin: true,
-    },
-    '/ws/': {
-      target: 'http://127.0.0.1:10088/',
-      logLevel: 'debug',
-      changeOrigin: true,
-      ws: true
-    },
-  },
 } as IConfig;

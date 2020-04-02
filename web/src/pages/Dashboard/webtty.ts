@@ -122,7 +122,6 @@ export class WebTTY {
       connection.onReceive((data) => {
         console.log("on receive..." + data)
         const payload = data.slice(1);
-       // console.log("output:" + atob(payload))
         switch (data[0]) {
           case msgOutput:
 
@@ -158,8 +157,7 @@ export class WebTTY {
           }, this.reconnect * 1000);
         }
       });
-
-      connection.open();
+      connection.open()
       console.log(connection.isOpen())
     }
 

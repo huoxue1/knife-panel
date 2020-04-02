@@ -7,9 +7,6 @@ import {GlobalModelState} from '@/models/global';
 import PageHeaderLayout from '@/layouts/PageHeaderLayout';
 import {connect} from 'dva';
 import moment from 'moment';
-import {Xterm} from "./xterm";
-import {protocols, Terminal, WebTTY} from "./webtty";
-import {ConnectionFactory} from "./websocket";
 
 
 export interface HomeProps {
@@ -35,29 +32,6 @@ class Home extends PureComponent<HomeProps, HomeState> {
   }
 
   componentDidMount(): void {
-
-    var gotty_auth_token = "";
-
-    const elem = document.getElementById("terminal")
-
-    if (elem !== null) {
-      var term: Terminal;
-      term = new Xterm(elem);
-      const httpsEnabled = window.location.protocol == "https:";
-      const url = (httpsEnabled ? 'wss://' : 'ws://') + window.location.host + '/ws/tty/';
-      const args = window.location.search;
-      console.log("url:"+url)
-      const factory = new ConnectionFactory(url, protocols);
-      const wt = new WebTTY(term, factory, args, gotty_auth_token);
-      const closer = wt.open();
-
-      window.addEventListener("unload", () => {
-        closer();
-        term.close();
-      });
-    }
-
-
     this.interval = setInterval(() => {
       this.setState({currentTime: moment().format('HH:mm:ss')});
     }, 1000);
@@ -105,7 +79,7 @@ class Home extends PureComponent<HomeProps, HomeState> {
         action={<span>当前时间：{currentTime}</span>}
       >
         <Card>
-          <div id="terminal"></div>
+
         </Card>
       </PageHeaderLayout>
     );

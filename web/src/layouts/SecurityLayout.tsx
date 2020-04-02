@@ -1,23 +1,29 @@
-import { AnyAction, Dispatch } from 'redux';
-import { Avatar, Dropdown, Icon, Layout, Menu, Spin } from 'antd';
+import {AnyAction, Dispatch} from 'redux';
+import {Avatar, Dropdown, Icon, Layout, Menu, Spin} from 'antd';
 
-import { ConnectState } from '@/models/connect';
-import { ContainerQuery } from 'react-container-query';
+import {ConnectState} from '@/models/connect';
+import {ContainerQuery} from 'react-container-query';
 import CopyRight from '@/components/CopyRight';
-import { Debounce } from 'lodash-decorators/debounce';
-import { GlobalContext } from '@/utils/context';
+import {Debounce} from 'lodash-decorators/debounce';
+import {GlobalContext} from '@/utils/context';
 import GlobalFooter from '@/components/GlobalFooter';
-import { GlobalModelState } from '@/models/global';
+import {GlobalModelState} from '@/models/global';
 import Link from 'umi/link';
 import React from 'react';
 import UpdatePasswordDialog from '@/components/UpdatePasswordDialog';
 import classNames from 'classnames';
-import { connect } from 'dva';
+import {connect} from 'dva';
 import logo from '../assets/logo.svg';
+import terminalIcon from '../assets/terminal.png'
 import styles from './SecurityLayout.less';
 
-const { Header, Sider, Content } = Layout;
-const { SubMenu } = Menu;
+import "xterm/css/xterm.css"
+import KnifeTerminal from "@/components/Terminal/KnifeTerminal";
+import FullscreenModel from "@/components/Model/FullscreenModel";
+
+const {Header, Sider, Content} = Layout;
+const {SubMenu} = Menu;
+
 
 const query = {
   'screen-xs': {
@@ -46,17 +52,18 @@ export interface SecurityLayoutProps {
   location: any;
 }
 
-@connect(({ global }: ConnectState) => ({
+@connect(({global}: ConnectState) => ({
   global,
 }))
 class SecurityLayout extends React.PureComponent<SecurityLayoutProps> {
   state = {
     updatePwdVisible: false,
+    terminalVisible: false,
   };
 
   componentDidMount(): void {
     const {
-      location: { pathname },
+      location: {pathname},
     } = this.props;
 
     this.dispatch({
@@ -78,7 +85,7 @@ class SecurityLayout extends React.PureComponent<SecurityLayoutProps> {
   }
 
   dispatch = (action: any) => {
-    const { dispatch } = this.props;
+    const {dispatch} = this.props;
     dispatch(action);
   };
 
@@ -89,19 +96,19 @@ class SecurityLayout extends React.PureComponent<SecurityLayoutProps> {
     });
   };
 
-  onMenuClick = ({ key }: { key: string }) => {
+  onMenuClick = ({key}: { key: string }) => {
     if (key === 'logout') {
       this.dispatch({
         type: 'login/logout',
       });
     } else if (key === 'updatepwd') {
-      this.setState({ updatePwdVisible: true });
+      this.setState({updatePwdVisible: true});
     }
   };
 
   onMenuOpenChange = (openKeys: any) => {
     const {
-      global: { menuMap },
+      global: {menuMap},
     } = this.props;
 
     if (openKeys.length > 1 && menuMap !== undefined) {
@@ -144,7 +151,7 @@ class SecurityLayout extends React.PureComponent<SecurityLayoutProps> {
   };
 
   onMenuSelectChange = (param: any) => {
-    const { selectedKeys } = param;
+    const {selectedKeys} = param;
     this.dispatch({
       type: 'global/changeSelectedKeys',
       payload: [...selectedKeys],
@@ -153,7 +160,7 @@ class SecurityLayout extends React.PureComponent<SecurityLayoutProps> {
 
   onToggleClick = () => {
     const {
-      global: { collapsed },
+      global: {collapsed},
     } = this.props;
     this.dispatch({
       type: 'global/changeLayoutCollapsed',
@@ -163,7 +170,7 @@ class SecurityLayout extends React.PureComponent<SecurityLayoutProps> {
   };
 
   handleUpdatePwdCancel = () => {
-    this.setState({ updatePwdVisible: false });
+    this.setState({updatePwdVisible: false});
   };
 
   renderNavMenuItems(menusData: any) {
@@ -183,7 +190,7 @@ class SecurityLayout extends React.PureComponent<SecurityLayoutProps> {
             title={
               item.icon ? (
                 <span>
-                  <Icon type={item.icon} />
+                  <Icon type={item.icon}/>
                   <span>{item.name}</span>
                 </span>
               ) : (
@@ -196,10 +203,10 @@ class SecurityLayout extends React.PureComponent<SecurityLayoutProps> {
         );
       }
 
-      const { router } = item;
-      const icon = item.icon && <Icon type={item.icon} />;
+      const {router} = item;
+      const icon = item.icon && <Icon type={item.icon}/>;
       const {
-        location: { pathname },
+        location: {pathname},
       } = this.props;
 
       return (
@@ -220,49 +227,35 @@ class SecurityLayout extends React.PureComponent<SecurityLayoutProps> {
     });
   }
 
-  renderPageTitle(): string {
-    const {
-      location: { pathname },
-      global: { menuPaths, title },
-    } = this.props;
-
-    let ptitle = title;
-    if (menuPaths !== undefined) {
-      const item = menuPaths[pathname];
-      if (item) {
-        ptitle = `${item.name} - ${title}`;
-      }
-    }
-
-    if (ptitle === undefined) {
-      return '';
-    }
-    return ptitle;
-  }
+  onTerminalClick = (state: boolean) => {
+    this.setState({
+      terminalVisible: state,
+    });
+  };
 
   render() {
     const {
       children,
-      global: { user, collapsed, openKeys, title, selectedKeys, menus, copyRight, menuPaths },
+      global: {user, collapsed, openKeys, title, selectedKeys, menus, copyRight, menuPaths},
     } = this.props;
 
-    const { updatePwdVisible } = this.state;
+    const {updatePwdVisible} = this.state;
 
     const menu = (
       <Menu className={styles.menu} selectedKeys={[]} onClick={this.onMenuClick}>
         <Menu.Item key="updatepwd">
-          <Icon type="lock" />
+          <Icon type="lock"/>
           修改密码
         </Menu.Item>
-        <Menu.Divider />
+        <Menu.Divider/>
         <Menu.Item key="logout">
-          <Icon type="logout" />
+          <Icon type="logout"/>
           退出登录
         </Menu.Item>
       </Menu>
     );
     // Don't show popup menu when it is been collapsed
-    const menuProps = collapsed ? {} : { openKeys };
+    const menuProps = collapsed ? {} : {openKeys};
     const layout = (
       <Layout>
         <Sider
@@ -276,7 +269,7 @@ class SecurityLayout extends React.PureComponent<SecurityLayoutProps> {
         >
           <div className={styles.logo}>
             <Link to="/">
-              <img src={logo} alt="logo" />
+              <img src={logo} alt="logo"/>
               <h1>{title}</h1>
             </Link>
           </div>
@@ -287,45 +280,56 @@ class SecurityLayout extends React.PureComponent<SecurityLayoutProps> {
             onOpenChange={this.onMenuOpenChange}
             onSelect={this.onMenuSelectChange}
             selectedKeys={selectedKeys}
-            style={{ margin: '16px 0', width: '100%' }}
+            style={{margin: '16px 0', width: '100%'}}
           >
             {this.renderNavMenuItems(menus)}
           </Menu>
         </Sider>
         <Layout>
-          <Header className={styles.header} style={{ padding: 0, paddingRight: 30 }}>
+          <Header className={styles.header} style={{padding: 0, paddingRight: 30}}>
             <Icon
               className={styles.trigger}
               type={collapsed ? 'menu-unfold' : 'menu-fold'}
               onClick={this.onToggleClick}
             />
             <div className={styles.right}>
+              <img src={terminalIcon} onClick={this.onTerminalClick.bind(this, true)} width={32} height={32}
+                   style={{marginRight: 12, cursor: "pointer"}}/>
               {user && user.user_name ? (
                 <Dropdown overlay={menu}>
                   <span className={`${styles.action} ${styles.account}`}>
-                    <Avatar size="small" className={styles.avatar} icon="user" />
+                    <Avatar size="small" className={styles.avatar} icon="user"/>
                     {user.real_name !== ''
                       ? `${user.user_name}(${user.real_name})`
                       : user.user_name}
                   </span>
                 </Dropdown>
               ) : (
-                <Spin size="small" style={{ marginLeft: 8 }} />
+                <Spin size="small" style={{marginLeft: 8}}/>
               )}
             </div>
           </Header>
-          <Content style={{ margin: '24px 24px 0', height: '100%' }}>
-            <div style={{ minHeight: 'calc(100vh - 260px)' }}>
-              <GlobalContext.Provider value={{ menuPaths }}>{children}</GlobalContext.Provider>
+          <Content style={{margin: '24px 24px 0', height: '100%'}}>
+            <div style={{minHeight: 'calc(100vh - 260px)'}}>
+              <GlobalContext.Provider value={{menuPaths}}>{children}</GlobalContext.Provider>
             </div>
             <GlobalFooter
               className={styles.footer}
               links={undefined}
-              copyright={<CopyRight title={copyRight} />}
+              copyright={<CopyRight title={copyRight}/>}
             />
           </Content>
         </Layout>
-        <UpdatePasswordDialog visible={updatePwdVisible} onCancel={this.handleUpdatePwdCancel} />
+        <FullscreenModel
+          title={"HelloWorld"}
+          visible={this.state.terminalVisible}
+          width={760}
+          onCancel={this.onTerminalClick.bind(this, false)}
+          footer={null}
+        >
+          <KnifeTerminal/>
+        </FullscreenModel>
+        <UpdatePasswordDialog visible={updatePwdVisible} onCancel={this.handleUpdatePwdCancel}/>
       </Layout>
     );
 
