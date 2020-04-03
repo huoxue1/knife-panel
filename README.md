@@ -1,6 +1,9 @@
 # 小刀面板
 一款Linux下的管理面板工具
 
+- Web终端
+
+![Web终端图片](https://raw.githubusercontent.com/tarepanda1024/knife-panel/master/docs/screenshots/tty.png)
 
 
 ## 功能
