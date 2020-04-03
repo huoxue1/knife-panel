@@ -75,8 +75,8 @@ const GlobalModel: GlobalModelType = {
 
   state: {
     collapsed: false,
-    title: '权限管理脚手架',
-    copyRight: '2019 LyricTian',
+    title: '小刀面板',
+    copyRight: '2020 Tarepanda1024',
     defaultURL: '/dashboard',
     openKeys: [],
     selectedKeys: [],

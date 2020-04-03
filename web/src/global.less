@@ -29,11 +29,13 @@ ol {
   .ant-table {
     width: 100%;
     overflow-x: auto;
+
     &-thead > tr,
     &-tbody > tr {
       > th,
       > td {
         white-space: pre;
+
         > span {
           display: block;
         }
@@ -101,56 +103,23 @@ ol {
   margin: 0;
 }
 
-.ant-pro-fixed-header + .ant-pro-tabsLayout-content {
-  padding-top: 118px;
-
-  .ant-pro-page-content-wrap {
-    .ant-pro-page-content-wrap-tabs {
-      > .ant-tabs-content {
-        height: calc(100vh - 118px);
-        overflow-y: scroll;
-      }
-    }
-
-    .ant-pro-page-content-wrap-children-content {
-      min-height: calc(100vh - 190px);
-    }
-  }
-
-  .ant-modal-wrap,
-  .ant-modal-mask {
-    position: absolute;
-  }
-
-  .ant-modal-wrap[role='dialog'] {
-    &.wm-modal-wrap-fullscreen {
-      .ant-modal {
-        height: calc(100vh - 118px) !important;
-        .ant-modal-body {
-          height: calc(100vh - 226px) !important;
-        }
-      }
-      &.wm-modal-wrap-nofooter {
-        .ant-modal-body {
-          height: calc(100vh - 173px) !important;
-        }
-      }
-    }
-  }
-}
 
 /* limit modal dialog's height */
 .ant-modal-wrap[role='dialog'] {
   .ant-modal {
-    max-height: calc(100vh - 30px);
+    width: 800px !important;
+    height: calc(100vh - 30px);
+
     .ant-modal-body {
-      max-height: calc(100vh - 140px);
+      height: calc(100vh - 140px);
+      padding: 8px !important;
       overflow-y: scroll;
     }
   }
+
   &.wm-modal-wrap-nofooter {
     .ant-modal-body {
-      max-height: calc(100vh - 87px);
+      height: calc(100vh - 180px);
     }
   }
 }
@@ -172,6 +141,7 @@ ol {
       max-height: none !important;
     }
   }
+
   &.wm-modal-wrap-nofooter {
     .ant-modal-body {
       height: calc(100vh - 55px) !important;
@@ -179,27 +149,12 @@ ol {
   }
 }
 
-.ant-pro-tabsLayout-content {
-  .ant-modal-wrap[role='dialog'] {
-    .ant-modal {
-      max-height: calc(100vh - 148px);
-      .ant-modal-body {
-        max-height: calc(100vh - 256px);
-        overflow-y: scroll;
-      }
-    }
-    &.wm-modal-wrap-nofooter {
-      .ant-modal-body {
-        max-height: calc(100vh - 203px);
-      }
-    }
-  }
-}
 
 .wm-modal-wrap {
   .ant-modal-close {
     top: 14px;
     right: 14px;
+
     .ant-modal-close-x {
       width: 28px;
       height: 28px;
@@ -229,6 +184,7 @@ ol {
 .ant-pro-page-content-wrap-tabs.ant-tabs > div:first-child .ant-tabs-bar .ant-tabs-tab-active {
   border-color: #1890ff !important;
 }
+
 .ant-pro-page-content-wrap-tabs.ant-tabs.ant-tabs-card
 > div:first-child
 .ant-tabs-card-bar

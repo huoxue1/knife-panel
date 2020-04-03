@@ -2,7 +2,7 @@ import {Terminal} from 'xterm';
 import {FitAddon} from 'xterm-addon-fit';
 import 'xterm/css/xterm.css'
 
-const bare = new Terminal({disableStdin:false});
+const bare = new Terminal({disableStdin: false});
 const fitAddon = new FitAddon();
 bare.loadAddon(fitAddon);
 
@@ -10,35 +10,22 @@ bare.loadAddon(fitAddon);
 export class Xterm {
   elem: HTMLElement;
   term: Terminal;
-  resizeListener: () => void;
   //decoder: lib.UTF8Decoder;
 
   message: HTMLElement;
   messageTimeout: number;
-  messageTimer: number;
 
 
   constructor(elem: HTMLElement) {
     this.elem = elem;
     this.term = bare;
+    // @ts-ignore
     this.message = elem.ownerDocument.createElement("div");
     this.message.className = "xterm-overlay";
     this.messageTimeout = 2000;
 
-    this.resizeListener = () => {
-      fitAddon.fit();
-      this.term.scrollToBottom();
-      this.showMessage(String(this.term.cols) + "x" + String(this.term.rows), this.messageTimeout);
-    };
-
-    // this.term.on("open", () => {
-    //     this.resizeListener();
-    //     window.addEventListener("resize", () => { this.resizeListener(); });
-    // });
-
     this.term.open(elem);
-
-    // this.decoder = new lib.UTF8Decoder()
+    this.resize();
   };
 
   info(): { columns: number, rows: number } {
@@ -46,23 +33,15 @@ export class Xterm {
   };
 
   output(data: string) {
-    console.log("output:--->:"+data)
     this.term.write(data);
   };
 
-  showMessage(message: string, timeout: number) {
-    this.message.textContent = message;
-    this.elem.appendChild(this.message);
+  resize(): void {
+    fitAddon.fit();
+    this.term.scrollToBottom();
+    console.log("resize")
+  }
 
-    if (this.messageTimer) {
-      clearTimeout(this.messageTimer);
-    }
-    if (timeout > 0) {
-      this.messageTimer = setTimeout(() => {
-        this.elem.removeChild(this.message);
-      }, timeout);
-    }
-  };
 
   removeMessage(): void {
     if (this.message.parentNode == this.elem) {
@@ -100,7 +79,6 @@ export class Xterm {
   }
 
   close(): void {
-    window.removeEventListener("resize", this.resizeListener);
     this.term.dispose();
   }
 }

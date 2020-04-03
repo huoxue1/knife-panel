@@ -18,7 +18,7 @@ export interface Terminal {
 
   output(data: string): void;
 
-  showMessage(message: string, timeout: number): void;
+  resize(): void;
 
   removeMessage(): void;
 
@@ -108,7 +108,6 @@ export class WebTTY {
 
         this.term.onInput(
           (input: string) => {
-            console.log("input..." + input)
             connection.send(msgInput + input);
           }
         );
@@ -120,7 +119,6 @@ export class WebTTY {
       });
 
       connection.onReceive((data) => {
-        console.log("on receive..." + data)
         const payload = data.slice(1);
         switch (data[0]) {
           case msgOutput:
@@ -148,7 +146,6 @@ export class WebTTY {
         console.log("on close...")
         clearInterval(pingTimer);
         this.term.deactivate();
-        this.term.showMessage("Connection Closed", 0);
         if (this.reconnect > 0) {
           reconnectTimeout = setTimeout(() => {
             connection = this.connectionFactory.create();

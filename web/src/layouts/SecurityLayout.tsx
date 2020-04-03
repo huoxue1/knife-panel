@@ -60,6 +60,7 @@ class SecurityLayout extends React.PureComponent<SecurityLayoutProps> {
     updatePwdVisible: false,
     terminalVisible: false,
   };
+  child: any;
 
   componentDidMount(): void {
     const {
@@ -233,6 +234,13 @@ class SecurityLayout extends React.PureComponent<SecurityLayoutProps> {
     });
   };
 
+  onRef = (ref: any) => {
+    this.child = ref;
+  };
+  onToggleFullScreen = () => {
+    this.child.resize();
+  };
+
   render() {
     const {
       children,
@@ -322,12 +330,13 @@ class SecurityLayout extends React.PureComponent<SecurityLayoutProps> {
         </Layout>
         <FullscreenModel
           title={"HelloWorld"}
+          width={500}
           visible={this.state.terminalVisible}
-          width={760}
+          onToggleFullScreen={this.onToggleFullScreen}
           onCancel={this.onTerminalClick.bind(this, false)}
-          footer={null}
+          footer={false}
         >
-          <KnifeTerminal/>
+          <KnifeTerminal onRef={this.onRef}/>
         </FullscreenModel>
         <UpdatePasswordDialog visible={updatePwdVisible} onCancel={this.handleUpdatePwdCancel}/>
       </Layout>

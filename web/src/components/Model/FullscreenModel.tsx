@@ -9,6 +9,7 @@ export interface FullscreenModelProps extends ModalProps {
   fullScreen: boolean;
   beforeOpen?: Function;
   beforeClose?: Function;
+  onToggleFullScreen?: Function;
 }
 
 interface FullscreenModalState {
@@ -62,7 +63,7 @@ class FullscreenModel extends Component<FullscreenModelProps, FullscreenModalSta
 
   cancelHandler = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
-    const { onCancel } = this.props;
+    const {onCancel} = this.props;
     if (onCancel) {
       onCancel(e);
     } else {
@@ -70,12 +71,20 @@ class FullscreenModel extends Component<FullscreenModelProps, FullscreenModalSta
     }
   };
 
-  toggleFullScreen = () => {
+  toggleFullScreen = (e: React.MouseEvent<HTMLElement>) => {
     const {fullScreen} = this.state;
     this.setState({
       fullScreen: !fullScreen,
+    }, () => {
+      const {onToggleFullScreen} = this.props;
+      if (onToggleFullScreen) {
+        onToggleFullScreen(e);
+      }
     });
+
+
   };
+
 
   titleRender = () => {
     const {title, maxmin} = this.props;
