@@ -265,7 +265,7 @@ class SecurityLayout extends React.PureComponent<SecurityLayoutProps> {
     // Don't show popup menu when it is been collapsed
     const menuProps = collapsed ? {} : {openKeys};
     const layout = (
-      <Layout>
+      <Layout className={styles.baseContainer}>
         <Sider
           trigger={null}
           collapsible
@@ -293,7 +293,7 @@ class SecurityLayout extends React.PureComponent<SecurityLayoutProps> {
             {this.renderNavMenuItems(menus)}
           </Menu>
         </Sider>
-        <Layout>
+        <Layout >
           <Header className={styles.header} style={{padding: 0, paddingRight: 30}}>
             <Icon
               className={styles.trigger}
@@ -317,8 +317,8 @@ class SecurityLayout extends React.PureComponent<SecurityLayoutProps> {
               )}
             </div>
           </Header>
-          <Content style={{margin: '24px 24px 0', height: '100%'}}>
-            <div style={{minHeight: 'calc(100vh - 260px)'}}>
+          <Content style={{padding: '24px 24px 0', height: '100%'}} className={styles.rightContent}>
+            <div >
               <GlobalContext.Provider value={{menuPaths}}>{children}</GlobalContext.Provider>
             </div>
             <GlobalFooter
