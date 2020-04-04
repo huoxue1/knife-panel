@@ -1,5 +1,7 @@
 # 小刀面板
-一款Linux下的管理面板工具
+一款类Unix下的管理面板工具
+
+注：支持Linux及Mac系统，不支持windows系统
 
 - Web终端
 
