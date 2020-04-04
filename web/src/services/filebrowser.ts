@@ -1,7 +1,7 @@
 import request from '@/utils/request';
-import { TableListParams } from './data.d';
+import { TableListParams } from '../pages/FileBrowser/data';
 
-export async function queryRule(params?: TableListParams) {
+export async function list(params?: TableListParams) {
   return request('/v1/file-browser', {
     params,
   });

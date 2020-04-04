@@ -13,7 +13,7 @@
 
 ## 转发配置
 
-转发配置在caddy目录下，可以下载[caddy](https://caddyserver.com/v1/)，指定配置文件为Caddyfile，启动后打开:8080就可以看到界面了
+转发配置在caddy目录下，可以下载[caddy](https://caddyserver.com/v1/)，指定配置文件为Caddyfile，启动后打开:80就可以看到界面了
 
 ## 分支管理
 - master为保护分支

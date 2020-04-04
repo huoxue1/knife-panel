@@ -1,14 +1,15 @@
-import { AnyAction } from 'redux';
-import { MenuDataItem } from '@ant-design/pro-layout';
-import { RouterTypes } from 'umi';
-import { GlobalModelState } from './global';
-import { LoginModelType } from './login';
-import { MenuModelState } from '@/models/menu';
-import { RoleModeState } from '@/models/role';
-import { DefaultSettings as SettingModelState } from '../../config/defaultSettings';
-import { UserModelState } from './user';
+import {AnyAction} from 'redux';
+import {MenuDataItem} from '@ant-design/pro-layout';
+import {RouterTypes} from 'umi';
+import {GlobalModelState} from './global';
+import {LoginModelType} from './login';
+import {MenuModelState} from '@/models/menu';
+import {RoleModeState} from '@/models/role';
+import {DefaultSettings as SettingModelState} from '../../config/defaultSettings';
+import {UserModelState} from './user';
+import {FileBrowserModelState} from '@/models/filebrowser'
 
-export { GlobalModelState, SettingModelState, UserModelState, MenuModelState, RoleModeState };
+export {GlobalModelState, SettingModelState, UserModelState, MenuModelState, RoleModeState, FileBrowserModelState};
 
 export interface Loading {
   global: boolean;
@@ -31,6 +32,7 @@ export interface ConnectState {
   login: LoginModelType;
   menu: MenuModelState;
   role: RoleModeState;
+  fileBrowser: FileBrowserModelState;
 }
 
 export interface Route extends MenuDataItem {

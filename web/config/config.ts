@@ -93,7 +93,7 @@ export default {
         },
         {
           path: '/file-browser',
-          component: './FileBrowser',
+          component: './FileBrowser/FileBrowserList',
         },
         {
           component: './404',

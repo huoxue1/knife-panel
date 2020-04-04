@@ -1,6 +1,6 @@
 import md5 from 'md5';
 import moment from 'moment';
-import { parse } from 'querystring';
+import {parse} from 'querystring';
 import uuid from 'uuid/v4';
 
 /* eslint no-useless-escape:0 import/prefer-default-export:0 */
@@ -42,6 +42,24 @@ export function formatDate(val: any, format: string) {
   }
   return moment(val).format(f);
 }
+
+export function formatSize(val: number) {
+  let unit = 'B';
+  if (val >= 1024) {
+    unit = "KiB";
+    val = val / 1024.0
+  }
+  if (val >= 1024) {
+    unit = "M";
+    val = val / 1024.0
+  }
+  if (val >= 1024) {
+    unit = "G";
+    val = val / 1024.0
+  }
+  return val.toFixed(2) + " " + unit;
+}
+
 
 // 创建UUID
 export function newUUID() {

@@ -8,6 +8,7 @@ import (
 	"knife-panel/internal/app/schema"
 	"os"
 	"path"
+	"sort"
 )
 
 // NewFileBrowser 创建demo
@@ -25,7 +26,7 @@ func (a *FileBrowser) List(ctx context.Context, basePath string) (*schema.FileQu
 	if e != nil {
 		return nil, e
 	}
-	fileItems := make([]*schema.FileItem, 0)
+	fileItems := schema.FileItems{}
 	for _, v := range fileList {
 		if len(v.Name()) == 0 {
 			continue
@@ -34,10 +35,12 @@ func (a *FileBrowser) List(ctx context.Context, basePath string) (*schema.FileQu
 			Id:         path.Join(basePath, v.Name()),
 			Name:       v.Name(),
 			Dir:        v.IsDir(),
+			Size:       v.Size(),
 			ModifyTime: v.ModTime(),
 		}
 		fileItems = append(fileItems, &fileItem)
 	}
+	sort.Sort(fileItems)
 	return &schema.FileQueryResult{Data: fileItems}, nil
 }
 

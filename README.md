@@ -7,6 +7,9 @@
 
 ![Web终端图片](https://raw.githubusercontent.com/tarepanda1024/knife-panel/master/docs/screenshots/tty.png)
 
+- 文件浏览器
+![文件浏览器](https://raw.githubusercontent.com/tarepanda1024/knife-panel/master/docs/screenshots/filebrowser.png)
+
 
 ## 功能
 - [x] web终端
