@@ -5,10 +5,10 @@
 
 - Web终端
 
-![Web终端图片](https://raw.githubusercontent.com/tarepanda1024/knife-panel/master/docs/screenshots/tty.png)
+![Web终端图片](https://raw.githubusercontent.com/tarepanda1024/knife-panel/master/docs/screenshots/01.png)
 
 - 文件浏览器
-![文件浏览器](https://raw.githubusercontent.com/tarepanda1024/knife-panel/master/docs/screenshots/filebrowser.png)
+![文件浏览器](https://raw.githubusercontent.com/tarepanda1024/knife-panel/master/docs/screenshots/02.png)
 
 
 ## 功能
