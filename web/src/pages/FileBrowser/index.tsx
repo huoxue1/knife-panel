@@ -24,43 +24,44 @@ export interface FileBrowserState {
 }))
 class FileBrowser extends React.PureComponent<FileBrowserProps, FileBrowserState> {
 
-  dispatch = (action: any) => {
-    const {dispatch} = this.props;
-    dispatch(action);
-  };
-
-  componentDidMount() {
-    this.dispatch({
-      type: 'role/fetch',
-      search: {},
-      pagination: {},
-    });
-  }
+  // dispatch = (action: any) => {
+  //   const {dispatch} = this.props;
+  //   dispatch(action);
+  // };
+  //
+  // componentDidMount() {
+  //   this.dispatch({
+  //     type: 'role/fetch',
+  //     search: {},
+  //     pagination: {},
+  //   });
+  // }
 
   render() {
-    const {
-      fileItem: {data},
-    } = this.props;
-
-    const {list} = data || {};
-    const columns = [
-      {
-        title: '名称',
-        dataIndex: 'name',
-      },
-      {
-        title: '修改时间',
-        dataIndex: 'modifyTime',
-        sorter: true,
-        valueType: 'dateTime',
-      },
-    ];
-
-    return (
-      <div>
-        <Table columns={columns} dataSource={list}/>
-      </div>
-    );
+    return (<div></div>)
+  //   const {
+  //     fileItem: {data},
+  //   } = this.props;
+  //
+  //   const {list} = data || {};
+  //   const columns = [
+  //     {
+  //       title: '名称',
+  //       dataIndex: 'name',
+  //     },
+  //     {
+  //       title: '修改时间',
+  //       dataIndex: 'modifyTime',
+  //       sorter: true,
+  //       valueType: 'dateTime',
+  //     },
+  //   ];
+  //
+  //   return (
+  //     <div>
+  //       <Table columns={columns} dataSource={list}/>
+  //     </div>
+  //   );
   }
 
 }
