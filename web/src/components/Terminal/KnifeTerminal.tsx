@@ -1,7 +1,7 @@
 import React from "react";
-import {protocols, Terminal, WebTTY} from "@/pages/Dashboard/webtty";
-import {Xterm} from "@/pages/Dashboard/xterm";
-import {ConnectionFactory} from "@/pages/Dashboard/websocket";
+import {protocols, Terminal, WebTTY} from "@/components/Terminal/webtty";
+import {Xterm} from "@/components/Terminal/xterm";
+import {ConnectionFactory} from "@/components/Terminal/websocket";
 
 export interface KnifeTerminalProps {
   onRef?: Function,
