@@ -6,60 +6,52 @@
     "sequence": 1900000
   },
   {
-    "name": "DEMO",
-    "icon": "tag",
-    "router": "/example/demo",
+    "name": "文件管理",
+    "icon": "folder",
+    "router": "/file-browser",
     "sequence": 1800000,
     "actions": [
-      { "code": "add", "name": "新增" },
-      { "code": "edit", "name": "编辑" },
-      { "code": "del", "name": "删除" },
-      { "code": "query", "name": "查询" },
-      { "code": "disable", "name": "禁用" },
-      { "code": "enable", "name": "启用" }
+      {
+        "code": "upload",
+        "name": "上传"
+      },
+      {
+        "code": "download",
+        "name": "下载"
+      },
+      {
+        "code": "del",
+        "name": "删除"
+      },
+      {
+        "code": "list",
+        "name": "查询"
+      }
     ],
     "resources": [
       {
-        "code": "query",
-        "name": "查询DEMO数据",
-        "method": "GET",
-        "path": "/api/v1/demos"
-      },
-      {
-        "code": "get",
-        "name": "精确查询DEMO数据",
-        "method": "GET",
-        "path": "/api/v1/demos/:id"
-      },
-      {
-        "code": "create",
-        "name": "创建DEMO数据",
+        "code": "upload",
+        "name": "上传文件",
         "method": "POST",
-        "path": "/api/v1/demos"
+        "path": "/api/v1/file-browser"
       },
       {
-        "code": "update",
-        "name": "更新DEMO数据",
-        "method": "PUT",
-        "path": "/api/v1/demos/:id"
+        "code": "download",
+        "name": "下载文件",
+        "method": "GET",
+        "path": "/api/v1/file-browser/:id"
+      },
+      {
+        "code": "list",
+        "name": "查询",
+        "method": "GET",
+        "path": "/api/v1/file-browser"
       },
       {
         "code": "delete",
-        "name": "删除DEMO数据",
+        "name": "删除文件",
         "method": "DELETE",
-        "path": "/api/v1/demos/:id"
-      },
-      {
-        "code": "disable",
-        "name": "禁用DEMO数据",
-        "method": "PATCH",
-        "path": "/api/v1/demos/:id/disable"
-      },
-      {
-        "code": "enable",
-        "name": "启用DEMO数据",
-        "method": "PATCH",
-        "path": "/api/v1/demos/:id/enable"
+        "path": "/api/v1/file-browser/:id"
       }
     ]
   },
@@ -74,10 +66,22 @@
         "router": "/system/menu",
         "sequence": 1190000,
         "actions": [
-          { "code": "add", "name": "新增" },
-          { "code": "edit", "name": "编辑" },
-          { "code": "del", "name": "删除" },
-          { "code": "query", "name": "查询" }
+          {
+            "code": "add",
+            "name": "新增"
+          },
+          {
+            "code": "edit",
+            "name": "编辑"
+          },
+          {
+            "code": "del",
+            "name": "删除"
+          },
+          {
+            "code": "query",
+            "name": "查询"
+          }
         ],
         "resources": [
           {
@@ -124,10 +128,22 @@
         "router": "/system/role",
         "sequence": 1180000,
         "actions": [
-          { "code": "add", "name": "新增" },
-          { "code": "edit", "name": "编辑" },
-          { "code": "del", "name": "删除" },
-          { "code": "query", "name": "查询" }
+          {
+            "code": "add",
+            "name": "新增"
+          },
+          {
+            "code": "edit",
+            "name": "编辑"
+          },
+          {
+            "code": "del",
+            "name": "删除"
+          },
+          {
+            "code": "query",
+            "name": "查询"
+          }
         ],
         "resources": [
           {
@@ -180,12 +196,30 @@
         "router": "/system/user",
         "sequence": 1170000,
         "actions": [
-          { "code": "add", "name": "新增" },
-          { "code": "edit", "name": "编辑" },
-          { "code": "del", "name": "删除" },
-          { "code": "query", "name": "查询" },
-          { "code": "disable", "name": "禁用" },
-          { "code": "enable", "name": "启用" }
+          {
+            "code": "add",
+            "name": "新增"
+          },
+          {
+            "code": "edit",
+            "name": "编辑"
+          },
+          {
+            "code": "del",
+            "name": "删除"
+          },
+          {
+            "code": "query",
+            "name": "查询"
+          },
+          {
+            "code": "disable",
+            "name": "禁用"
+          },
+          {
+            "code": "enable",
+            "name": "启用"
+          }
         ],
         "resources": [
           {

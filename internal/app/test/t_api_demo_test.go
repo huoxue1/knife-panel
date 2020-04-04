@@ -4,9 +4,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
 	"knife-panel/internal/app/schema"
 	"knife-panel/pkg/util"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestAPIDemo(t *testing.T) {
@@ -16,7 +16,7 @@ func TestAPIDemo(t *testing.T) {
 	w := httptest.NewRecorder()
 
 	// post /demos
-	addItem := &schema.Demo{
+	addItem := &schema.FileItem{
 		Code:   util.MustUUID(),
 		Name:   util.MustUUID(),
 		Status: 1,
@@ -24,7 +24,7 @@ func TestAPIDemo(t *testing.T) {
 	engine.ServeHTTP(w, newPostRequest(router, addItem))
 	assert.Equal(t, 200, w.Code)
 
-	var addNewItem schema.Demo
+	var addNewItem schema.FileItem
 	err = parseReader(w.Body, &addNewItem)
 	assert.Nil(t, err)
 	assert.Equal(t, addItem.Code, addNewItem.Code)
@@ -35,7 +35,7 @@ func TestAPIDemo(t *testing.T) {
 	// query /demos
 	engine.ServeHTTP(w, newGetRequest(router, newPageParam()))
 	assert.Equal(t, 200, w.Code)
-	var pageItems []*schema.Demo
+	var pageItems []*schema.FileItem
 	err = parsePageReader(w.Body, &pageItems)
 	assert.Nil(t, err)
 	assert.Equal(t, len(pageItems), 1)
@@ -47,7 +47,7 @@ func TestAPIDemo(t *testing.T) {
 	// put /demos/:id
 	engine.ServeHTTP(w, newGetRequest("%s/%s", nil, router, addNewItem.RecordID))
 	assert.Equal(t, 200, w.Code)
-	var putItem schema.Demo
+	var putItem schema.FileItem
 	err = parseReader(w.Body, &putItem)
 	assert.Nil(t, err)
 
@@ -55,7 +55,7 @@ func TestAPIDemo(t *testing.T) {
 	engine.ServeHTTP(w, newPutRequest("%s/%s", putItem, router, addNewItem.RecordID))
 	assert.Equal(t, 200, w.Code)
 
-	var putNewItem schema.Demo
+	var putNewItem schema.FileItem
 	err = parseReader(w.Body, &putNewItem)
 	assert.Nil(t, err)
 	assert.Equal(t, putItem.Name, putNewItem.Name)

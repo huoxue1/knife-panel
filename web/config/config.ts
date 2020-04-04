@@ -1,9 +1,9 @@
-import {IConfig, IPlugin} from 'umi-types';
+import { IConfig, IPlugin } from 'umi-types';
 import defaultSettings from './defaultSettings'; // https://umijs.org/config/
+
 import slash from 'slash2';
 import webpackPlugin from './plugin.config';
-
-const {pwa, primaryColor} = defaultSettings;
+const { pwa, primaryColor } = defaultSettings;
 const plugins: IPlugin[] = [
   [
     'umi-plugin-react',
@@ -20,11 +20,11 @@ const plugins: IPlugin[] = [
       },
       pwa: pwa
         ? {
-          workboxPluginMode: 'InjectManifest',
-          workboxOptions: {
-            importWorkboxFrom: 'local',
-          },
-        }
+            workboxPluginMode: 'InjectManifest',
+            workboxOptions: {
+              importWorkboxFrom: 'local',
+            },
+          }
         : false,
       dll: true,
     },
@@ -43,8 +43,7 @@ export default {
   plugins,
   block: {
     // 国内用户可以使用码云
-    // defaultGitUrl: 'https://gitee.com/ant-design/pro-blocks',
-    defaultGitUrl: 'https://github.com/ant-design/pro-blocks',
+    defaultGitUrl: 'https://gitee.com/ant-design/pro-blocks', //defaultGitUrl: 'https://github.com/ant-design/pro-blocks',
   },
   hash: true,
   targets: {
@@ -93,6 +92,10 @@ export default {
           ],
         },
         {
+          path: '/file-browser',
+          component: './FileBrowser',
+        },
+        {
           component: './404',
         },
       ],
@@ -117,7 +120,7 @@ export default {
         resourcePath: string;
       },
       _: string,
-      localName: string,
+      localName: string
     ) => {
       if (
         context.resourcePath.includes('node_modules') ||

@@ -17,7 +17,7 @@ func RegisterRouter(app *gin.Engine, container *dig.Container) error {
 	return container.Invoke(func(
 		a auth.Auther,
 		e *casbin.SyncedEnforcer,
-		cDemo *ctl.Demo,
+		cFileBrowser *ctl.FileBrowser,
 		cLogin *ctl.Login,
 		cMenu *ctl.Menu,
 		cRole *ctl.Role,
@@ -66,15 +66,12 @@ func RegisterRouter(app *gin.Engine, container *dig.Container) error {
 			}
 
 			// 注册/api/v1/demos
-			gDemo := v1.Group("demos")
+			fileBrowser := v1.Group("file-browser")
 			{
-				gDemo.GET("", cDemo.Query)
-				gDemo.GET(":id", cDemo.Get)
-				gDemo.POST("", cDemo.Create)
-				gDemo.PUT(":id", cDemo.Update)
-				gDemo.DELETE(":id", cDemo.Delete)
-				gDemo.PATCH(":id/enable", cDemo.Enable)
-				gDemo.PATCH(":id/disable", cDemo.Disable)
+				fileBrowser.GET("", cFileBrowser.List)
+				fileBrowser.GET(":id", cFileBrowser.Download)
+				fileBrowser.POST("", cFileBrowser.Upload)
+				fileBrowser.DELETE(":id", cFileBrowser.Delete)
 			}
 
 			// 注册/api/v1/menus

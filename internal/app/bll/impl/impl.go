@@ -1,22 +1,22 @@
 package impl
 
 import (
+	"go.uber.org/dig"
 	"knife-panel/internal/app/bll"
 	"knife-panel/internal/app/bll/impl/internal"
-	"go.uber.org/dig"
 )
 
 // Inject 注入bll实现
 // 使用方式：
 //   container := dig.New()
 //   Inject(container)
-//   container.Invoke(func(foo IDemo) {
+//   container.Invoke(func(foo IFileBrowser) {
 //   })
 func Inject(container *dig.Container) error {
 	_ = container.Provide(internal.NewTrans)
 	_ = container.Provide(func(b *internal.Trans) bll.ITrans { return b })
-	_ = container.Provide(internal.NewDemo)
-	_ = container.Provide(func(b *internal.Demo) bll.IDemo { return b })
+	_ = container.Provide(internal.NewFileBrowser)
+	_ = container.Provide(func(b *internal.FileBrowser) bll.IFileBrowser { return b })
 	_ = container.Provide(internal.NewLogin)
 	_ = container.Provide(func(b *internal.Login) bll.ILogin { return b })
 	_ = container.Provide(internal.NewMenu)

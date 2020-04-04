@@ -3,12 +3,12 @@ package gorm
 import (
 	"time"
 
+	"github.com/jinzhu/gorm"
+	"go.uber.org/dig"
 	"knife-panel/internal/app/config"
 	"knife-panel/internal/app/model"
 	"knife-panel/internal/app/model/impl/gorm/internal/entity"
 	imodel "knife-panel/internal/app/model/impl/gorm/internal/model"
-	"github.com/jinzhu/gorm"
-	"go.uber.org/dig"
 
 	// gorm存储注入
 	_ "github.com/jinzhu/gorm/dialects/mysql"
@@ -60,7 +60,6 @@ func AutoMigrate(db *gorm.DB) error {
 	}
 
 	return db.AutoMigrate(
-		new(entity.Demo),
 		new(entity.User),
 		new(entity.UserRole),
 		new(entity.Role),
@@ -80,8 +79,6 @@ func AutoMigrate(db *gorm.DB) error {
 func Inject(container *dig.Container) error {
 	_ = container.Provide(imodel.NewTrans)
 	_ = container.Provide(func(m *imodel.Trans) model.ITrans { return m })
-	_ = container.Provide(imodel.NewDemo)
-	_ = container.Provide(func(m *imodel.Demo) model.IDemo { return m })
 	_ = container.Provide(imodel.NewMenu)
 	_ = container.Provide(func(m *imodel.Menu) model.IMenu { return m })
 	_ = container.Provide(imodel.NewRole)

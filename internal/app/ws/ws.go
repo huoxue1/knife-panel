@@ -31,7 +31,7 @@ func RegisterRouter(app *gin.Engine, container *dig.Container) error {
 	return container.Invoke(func(
 		a auth.Auther,
 		e *casbin.SyncedEnforcer,
-		cDemo *ctl.Demo,
+		cDemo *ctl.FileBrowser,
 		cLogin *ctl.Login,
 		cMenu *ctl.Menu,
 		cRole *ctl.Role,
