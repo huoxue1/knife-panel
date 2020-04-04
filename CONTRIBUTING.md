@@ -19,7 +19,8 @@
 - master为保护分支
 - dev为开发分支
 - 新特性的开发需要从dev拉取，命名规则为：feature_xxx
-- 问题修复，命名规则为：bug_fix_xxx
+- 文档更新，命名规则为：patch_xxx
+- 问题修复，命名规则为：fix_xxx
 
 ## PR说明
 
