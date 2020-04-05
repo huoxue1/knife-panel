@@ -9,11 +9,7 @@
 ## 前端
 
 前端采用的 [gin-admin-web](https://github.com/LyricTian/gin-admin-react/tree/ts-master)模板开发的。具体启动方式可以参考gin-admin-web文档。
-原项目自带的webpack配置转发websocket有点问题。因此选用caddy进行转发。
 
-## 转发配置
-
-转发配置在caddy目录下，可以下载[caddy](https://caddyserver.com/v1/)，指定配置文件为Caddyfile，启动后打开:80就可以看到界面了
 
 ## 分支管理
 - master为保护分支

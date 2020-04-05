@@ -330,7 +330,7 @@ class SecurityLayout extends React.PureComponent<SecurityLayoutProps> {
         </Layout>
         <FullscreenModel
           title={"HelloWorld"}
-          width={500}
+          width={800}
           visible={this.state.terminalVisible}
           onToggleFullScreen={this.onToggleFullScreen}
           onCancel={this.onTerminalClick.bind(this, false)}
