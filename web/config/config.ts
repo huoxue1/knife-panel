@@ -1,9 +1,9 @@
-import { IConfig, IPlugin } from 'umi-types';
+import {IConfig, IPlugin} from 'umi-types';
 import defaultSettings from './defaultSettings'; // https://umijs.org/config/
-
 import slash from 'slash2';
 import webpackPlugin from './plugin.config';
-const { pwa, primaryColor } = defaultSettings;
+
+const {pwa, primaryColor} = defaultSettings;
 const plugins: IPlugin[] = [
   [
     'umi-plugin-react',
@@ -20,11 +20,11 @@ const plugins: IPlugin[] = [
       },
       pwa: pwa
         ? {
-            workboxPluginMode: 'InjectManifest',
-            workboxOptions: {
-              importWorkboxFrom: 'local',
-            },
-          }
+          workboxPluginMode: 'InjectManifest',
+          workboxOptions: {
+            importWorkboxFrom: 'local',
+          },
+        }
         : false,
       dll: true,
     },
@@ -148,4 +148,15 @@ export default {
     basePath: '/',
   },
   chainWebpack: webpackPlugin,
+  devServer: {
+    proxy: {
+      '/api': {
+        'target': 'http://127.0.0.1:10088'
+      },
+      '/ws': {
+        'target': 'http://127.0.0.1:10088',
+        'ws': true
+      }
+    }
+  },
 } as IConfig;
