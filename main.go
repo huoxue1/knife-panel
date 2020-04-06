@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"flag"
+	"knife-panel/asset"
 	"os"
 	"os/signal"
 	"sync/atomic"
@@ -33,8 +34,15 @@ func init() {
 	flag.StringVar(&swaggerDir, "swagger", "./docs/swagger", "swagger目录")
 	flag.StringVar(&menuFile, "menu", "./configs/menu.json", "菜单数据文件(.json)")
 }
-//go:generate go-bindata -prefix=web/dist -o=asset/asset.go -pkg=asset web/dist/...
+
+//go:generate go-bindata -prefix=web -o=asset/asset.go -pkg=asset web/dist/... configs/...
 func main() {
+
+	//extract conf
+	if err := asset.RestoreAssets("./", "configs"); err != nil {
+		panic(err)
+	}
+
 	flag.Parse()
 
 	if configFile == "" {

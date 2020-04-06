@@ -20,8 +20,9 @@ import (
 
 //extract static files
 func InitAsset() error {
+	//extract www
 	if c := config.Global().WWW; c != "" {
-		if err := asset.RestoreAssets(c, ""); err != nil {
+		if err := asset.RestoreAssets(c, "dist"); err != nil {
 			return err
 		}
 	}
