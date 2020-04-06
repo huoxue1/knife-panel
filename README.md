@@ -13,9 +13,22 @@
 ## 功能
 - [x] web终端
 - [ ] 机器信息CPU、内存展示
-- [ ] 文件浏览管理
+- [x] 文件浏览管理
 - [ ] Docker管理
 - [ ] 软件模块安装卸载
+
+## 启动
+
+### 前端
+```shell script
+yarn
+#yarn build
+```
+
+### 后端
+```shell script
+go generate && go run main.go
+```
 
 
 ## 贡献说明

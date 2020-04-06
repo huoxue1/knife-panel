@@ -4,11 +4,11 @@ import (
 	"context"
 	"os"
 
+	"go.uber.org/dig"
 	"knife-panel/internal/app/bll/impl"
 	"knife-panel/internal/app/config"
 	"knife-panel/pkg/auth"
 	"knife-panel/pkg/logger"
-	"go.uber.org/dig"
 )
 
 type options struct {
@@ -101,6 +101,11 @@ func Init(ctx context.Context, opts ...Option) func() {
 	handleError(err)
 
 	err = InitMonitor()
+	if err != nil {
+		logger.Errorf(ctx, err.Error())
+	}
+
+	err = InitAsset()
 	if err != nil {
 		logger.Errorf(ctx, err.Error())
 	}
