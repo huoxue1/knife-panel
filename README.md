@@ -3,7 +3,7 @@
 
 注：支持Linux及Mac系统，不支持windows系统
 
-demo: http://demo-panel.photon.fun/file-browser 用户名：root 密码：abc-123
+demo: http://demo-panel.photon.fun 用户名：root 密码：abc-123
 
 > demo站点基于docker，每10分钟会自动销毁重建
 
