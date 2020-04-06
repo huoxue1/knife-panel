@@ -39,7 +39,7 @@ go generate && go run main.go
 
 - [gin-admin](https://github.com/LyricTian/gin-admin)
 - [gin-admin-web](https://github.com/LyricTian/gin-admin-react/tree/ts-master)
-
+- [gotty](https://github.com/yudai/gotty)
 ## 版权
 
 ```
