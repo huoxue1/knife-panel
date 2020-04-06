@@ -1,7 +1,7 @@
 package localcommand
 
 import (
-	"knife-panel/server"
+	"knife-panel/internal/app/bll/terminal/server"
 	"syscall"
 	"time"
 )

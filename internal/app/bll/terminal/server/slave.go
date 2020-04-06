@@ -1,7 +1,7 @@
 package server
 
 import (
-	"knife-panel/webtty"
+	"knife-panel/internal/app/bll/terminal/webtty"
 )
 
 // Slave is webtty.Slave with some additional methods.

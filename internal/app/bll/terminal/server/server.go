@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/gin-gonic/gin"
 	"html/template"
-	"knife-panel/webtty"
+	"knife-panel/internal/app/bll/terminal/webtty"
 	"log"
 	"net/http"
 	noesctmpl "text/template"
