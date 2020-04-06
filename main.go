@@ -16,7 +16,7 @@ import (
 
 // VERSION 版本号，
 // 可以通过编译的方式指定版本号：go build -ldflags "-X main.VERSION=x.x.x"
-var VERSION = "5.2.1"
+var VERSION = "0.0.1"
 
 var (
 	configFile string
@@ -33,7 +33,7 @@ func init() {
 	flag.StringVar(&swaggerDir, "swagger", "./docs/swagger", "swagger目录")
 	flag.StringVar(&menuFile, "menu", "./configs/menu.json", "菜单数据文件(.json)")
 }
-
+//go:generate go-bindata -prefix=web/dist -o=asset/asset.go -pkg=asset web/dist/...
 func main() {
 	flag.Parse()
 
