@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"github.com/gorilla/websocket"
 	"github.com/pkg/errors"
-	"knife-panel/webtty"
+	"knife-panel/internal/app/bll/terminal/webtty"
 	"log"
 	"net/http"
 )

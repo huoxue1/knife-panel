@@ -19,11 +19,11 @@ import (
 	"github.com/casbin/casbin/v2"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/dig"
-	"knife-panel/backend/localcommand"
+	"knife-panel/internal/app/bll/terminal/backend/localcommand"
+	"knife-panel/internal/app/bll/terminal/server"
 	"knife-panel/internal/app/routers/api/ctl"
 	"knife-panel/pkg/auth"
-	"knife-panel/server"
-	"knife-panel/utils"
+	"knife-panel/pkg/util"
 	"os"
 )
 
@@ -47,11 +47,11 @@ func RegisterRouter(app *gin.Engine, container *dig.Container) error {
 					Width:       600,
 					Height:      800,
 				}
-				if err := utils.ApplyDefaultValues(appOptions); err != nil {
+				if err := util.ApplyDefaultValues(appOptions); err != nil {
 					exit(err, 1)
 				}
 				backendOptions := &localcommand.Options{}
-				if err := utils.ApplyDefaultValues(backendOptions); err != nil {
+				if err := util.ApplyDefaultValues(backendOptions); err != nil {
 					exit(err, 1)
 				}
 
