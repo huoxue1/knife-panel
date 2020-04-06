@@ -19,6 +19,18 @@
 
 ## 启动
 
+### 可执行包
+可以直接从release页面下载可执行包启动体验
+
+### Docker
+也可以通过Docker镜像体验
+```shell script
+docker pull windbox223/knife-panel:0.0.2
+docker run -d --name knife-panel -p 10088:10088  windbox223/knife-panel:0.0.2
+```
+
+## 手动编译
+
 ### 前端
 ```shell script
 yarn
@@ -29,6 +41,9 @@ yarn
 ```shell script
 go generate && go run main.go
 ```
+
+## Docker部署
+
 
 
 ## 贡献说明
