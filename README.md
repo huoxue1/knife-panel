@@ -3,6 +3,10 @@
 
 注：支持Linux及Mac系统，不支持windows系统
 
+demo: http://demo-panel.photon.fun/file-browser 用户名：root 密码：abc-123
+
+> demo站点基于docker，每10分钟会自动销毁重建
+
 - Web终端
 ![Web终端图片](https://raw.githubusercontent.com/tarepanda1024/knife-panel/master/docs/screenshots/01.png)
 
