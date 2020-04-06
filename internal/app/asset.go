@@ -13,18 +13,13 @@
 // limitations under the License.
 package app
 
-import (
-	"knife-panel/asset"
-	"knife-panel/internal/app/config"
-)
+import "knife-panel/asset"
 
 //extract static files
 func InitAsset() error {
 	//extract www
-	if c := config.Global().WWW; c != "" {
-		if err := asset.RestoreAssets(c, "dist"); err != nil {
-			return err
-		}
+	if err := asset.RestoreAssets("./asset/web/", "dist"); err != nil {
+		return err
 	}
 	return nil
 }
