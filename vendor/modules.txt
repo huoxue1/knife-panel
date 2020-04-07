@@ -13,6 +13,8 @@ github.com/LyricTian/queue
 github.com/PuerkitoBio/purell
 # github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578
 github.com/PuerkitoBio/urlesc
+# github.com/StackExchange/wmi v0.0.0-20170410192909-ea383cf3ba6e
+github.com/StackExchange/wmi
 # github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 github.com/alecthomas/template
 github.com/alecthomas/template/parse
@@ -45,8 +47,9 @@ github.com/gin-gonic/gin
 github.com/gin-gonic/gin/binding
 github.com/gin-gonic/gin/internal/json
 github.com/gin-gonic/gin/render
-# github.com/go-bindata/go-bindata v3.1.2+incompatible
-github.com/go-bindata/go-bindata
+# github.com/go-ole/go-ole v1.2.1
+github.com/go-ole/go-ole
+github.com/go-ole/go-ole/oleutil
 # github.com/go-openapi/jsonpointer v0.17.0
 github.com/go-openapi/jsonpointer
 # github.com/go-openapi/jsonreference v0.19.0
@@ -118,6 +121,9 @@ github.com/modern-go/reflect2
 github.com/pkg/errors
 # github.com/pmezard/go-difflib v1.0.0
 github.com/pmezard/go-difflib/difflib
+# github.com/shirou/gopsutil v0.0.0-20180427012116-c95755e4bcd7
+github.com/shirou/gopsutil/internal/common
+github.com/shirou/gopsutil/mem
 # github.com/sirupsen/logrus v1.4.2
 github.com/sirupsen/logrus
 # github.com/stretchr/testify v1.4.0
@@ -154,6 +160,7 @@ golang.org/x/lint/golint
 golang.org/x/net/idna
 # golang.org/x/sys v0.0.0-20190813064441-fde4db37ae7a
 golang.org/x/sys/unix
+golang.org/x/sys/windows
 # golang.org/x/text v0.3.2
 golang.org/x/text/secure/bidirule
 golang.org/x/text/transform

@@ -18,6 +18,7 @@ func RegisterRouter(app *gin.Engine, container *dig.Container) error {
 		a auth.Auther,
 		e *casbin.SyncedEnforcer,
 		cFileBrowser *ctl.FileBrowser,
+		monitor *ctl.SystemMonitor,
 		cLogin *ctl.Login,
 		cMenu *ctl.Menu,
 		cRole *ctl.Role,
@@ -72,6 +73,11 @@ func RegisterRouter(app *gin.Engine, container *dig.Container) error {
 				fileBrowser.GET(":id", cFileBrowser.Download)
 				fileBrowser.POST("", cFileBrowser.Upload)
 				fileBrowser.DELETE(":id", cFileBrowser.Delete)
+			}
+
+			systemMonitor := v1.Group("system-monitor")
+			{
+				systemMonitor.GET("", monitor.GetSystemInfo)
 			}
 
 			// 注册/api/v1/menus
