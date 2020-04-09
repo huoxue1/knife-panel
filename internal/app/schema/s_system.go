@@ -13,5 +13,15 @@
 // limitations under the License.
 package schema
 
+import (
+	"github.com/shirou/gopsutil/host"
+	"github.com/shirou/gopsutil/load"
+	"github.com/shirou/gopsutil/mem"
+)
+
 type SystemInfo struct {
+	InfoStat    *host.InfoStat         `json:"info_stat"`
+	VMemStat    *mem.VirtualMemoryStat `json:"v_mem_stat"`
+	SwapMemStat *mem.SwapMemoryStat    `json:"swap_mem_stat"`
+	LoadStat    *load.AvgStat          `json:"load_stat"`
 }
