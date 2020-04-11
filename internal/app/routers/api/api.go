@@ -18,11 +18,11 @@ func RegisterRouter(app *gin.Engine, container *dig.Container) error {
 		a auth.Auther,
 		e *casbin.SyncedEnforcer,
 		cFileBrowser *ctl.FileBrowser,
-		monitor *ctl.SystemMonitor,
 		cLogin *ctl.Login,
 		cMenu *ctl.Menu,
 		cRole *ctl.Role,
 		cUser *ctl.User,
+		monitor *ctl.SystemMonitor,
 	) error {
 
 		g := app.Group("/api")
@@ -75,11 +75,6 @@ func RegisterRouter(app *gin.Engine, container *dig.Container) error {
 				fileBrowser.DELETE(":id", cFileBrowser.Delete)
 			}
 
-			systemMonitor := v1.Group("system-monitor")
-			{
-				systemMonitor.GET("", monitor.GetSystemInfo)
-			}
-
 			// 注册/api/v1/menus
 			gMenu := v1.Group("menus")
 			{
@@ -113,6 +108,12 @@ func RegisterRouter(app *gin.Engine, container *dig.Container) error {
 				gUser.PATCH(":id/enable", cUser.Enable)
 				gUser.PATCH(":id/disable", cUser.Disable)
 			}
+
+			systemMonitor := v1.Group("system-monitor")
+			{
+				systemMonitor.GET("", monitor.GetSystemInfo)
+			}
+
 		}
 
 		return nil
