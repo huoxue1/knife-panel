@@ -15,7 +15,7 @@ require (
 	github.com/fatih/structs v1.1.0
 	github.com/gin-contrib/cors v1.3.0
 	github.com/gin-gonic/gin v1.5.0
-	github.com/go-bindata/go-bindata v3.1.2+incompatible
+	github.com/go-bindata/go-bindata v3.1.2+incompatible // indirect
 	github.com/go-redis/redis v6.15.6+incompatible
 	github.com/go-redis/redis_rate v6.5.0+incompatible
 	github.com/google/gops v0.3.6
@@ -24,6 +24,7 @@ require (
 	github.com/jinzhu/gorm v1.9.11
 	github.com/json-iterator/go v1.1.8
 	github.com/pkg/errors v0.8.1
+	github.com/shirou/gopsutil v0.0.0-20180427012116-c95755e4bcd7
 	github.com/sirupsen/logrus v1.4.2
 	github.com/stretchr/testify v1.4.0
 	github.com/swaggo/swag v1.6.3

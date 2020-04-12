@@ -22,6 +22,7 @@ func RegisterRouter(app *gin.Engine, container *dig.Container) error {
 		cMenu *ctl.Menu,
 		cRole *ctl.Role,
 		cUser *ctl.User,
+		monitor *ctl.SystemMonitor,
 	) error {
 
 		g := app.Group("/api")
@@ -107,6 +108,12 @@ func RegisterRouter(app *gin.Engine, container *dig.Container) error {
 				gUser.PATCH(":id/enable", cUser.Enable)
 				gUser.PATCH(":id/disable", cUser.Disable)
 			}
+
+			systemMonitor := v1.Group("system-monitor")
+			{
+				systemMonitor.GET("", monitor.GetSystemInfo)
+			}
+
 		}
 
 		return nil
