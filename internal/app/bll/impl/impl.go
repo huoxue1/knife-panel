@@ -15,8 +15,6 @@ import (
 func Inject(container *dig.Container) error {
 	_ = container.Provide(internal.NewTrans)
 	_ = container.Provide(func(b *internal.Trans) bll.ITrans { return b })
-	_ = container.Provide(internal.NewFileBrowser)
-	_ = container.Provide(func(b *internal.FileBrowser) bll.IFileBrowser { return b })
 	_ = container.Provide(internal.NewLogin)
 	_ = container.Provide(func(b *internal.Login) bll.ILogin { return b })
 	_ = container.Provide(internal.NewMenu)
@@ -25,5 +23,9 @@ func Inject(container *dig.Container) error {
 	_ = container.Provide(func(b *internal.Role) bll.IRole { return b })
 	_ = container.Provide(internal.NewUser)
 	_ = container.Provide(func(b *internal.User) bll.IUser { return b })
+	_ = container.Provide(internal.NewFileBrowser)
+	_ = container.Provide(func(b *internal.FileBrowser) bll.IFileBrowser { return b })
+	_ = container.Provide(internal.NewSystemMonitor)
+	_ = container.Provide(func(b *internal.SystemMonitor) bll.ISystemMonitor { return b })
 	return nil
 }

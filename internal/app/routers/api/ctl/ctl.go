@@ -11,10 +11,11 @@ import (
 //   container.Invoke(func(foo *ctl.FileBrowser) {
 //   })
 func Inject(container *dig.Container) error {
-	_ = container.Provide(NewFileBrowser)
 	_ = container.Provide(NewLogin)
 	_ = container.Provide(NewMenu)
 	_ = container.Provide(NewRole)
 	_ = container.Provide(NewUser)
+	_ = container.Provide(NewFileBrowser)
+	_ = container.Provide(NewSystemMonitor)
 	return nil
 }
