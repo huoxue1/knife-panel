@@ -89,13 +89,11 @@ class FileBrowserList extends PureComponent<FileBrowserListProps, FileBrowserLis
       },
       {
         title: '大小',
-        align: 'center',
         dataIndex: 'size',
         render: (val: any) => <span>{formatSize(val)}</span>,
       },
       {
         title: '更新时间',
-        align: 'center',
         dataIndex: 'modifyTime',
         render: (val: any) => <span>{formatDate(val, 'YYYY-MM-DD HH:mm')}</span>,
       },

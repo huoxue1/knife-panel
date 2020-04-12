@@ -1,8 +1,9 @@
 import * as loginService from '@/services/login';
 
-import { Effect, Subscription } from 'dva';
+import {Effect, Subscription} from 'dva';
 
-import { Reducer } from 'redux';
+import {Reducer} from 'redux';
+import * as systemMonitorService from "@/services/systemMonitor";
 
 export interface CurrentUser {
   user_name: string;
@@ -22,6 +23,11 @@ export interface MenuResource {
   path?: string;
 }
 
+export interface SystemInfo {
+  info_stat?: any;
+  v_mem_stat?: any;
+}
+
 export interface MenuParam {
   record_id?: string;
   name?: string;
@@ -37,6 +43,7 @@ export interface MenuParam {
   resources?: MenuResource[];
 }
 
+
 export interface GlobalModelState {
   title?: string;
   copyRight?: string;
@@ -48,6 +55,7 @@ export interface GlobalModelState {
   menuPaths?: { [key: string]: MenuParam };
   menuMap?: { [key: string]: MenuParam };
   menus?: MenuParam[];
+  monitor?: SystemInfo;
 }
 
 export interface GlobalModelType {
@@ -57,6 +65,7 @@ export interface GlobalModelType {
     menuEvent: Effect;
     fetchUser: Effect;
     fetchMenuTree: Effect;
+    fetchBasicSystemInfo: Effect;
   };
   reducers: {
     changeLayoutCollapsed: Reducer<GlobalModelState>;
@@ -66,6 +75,7 @@ export interface GlobalModelType {
     saveMenuPaths: Reducer<GlobalModelState>;
     saveMenuMap: Reducer<GlobalModelState>;
     saveMenus: Reducer<GlobalModelState>;
+    saveBasicSystemInfo: Reducer<GlobalModelState>;
   };
   subscriptions: { setup: Subscription };
 }
@@ -88,10 +98,14 @@ const GlobalModel: GlobalModelType = {
     menuPaths: {},
     menuMap: {},
     menus: [],
+    monitor: {
+      info_stat: {},
+      v_mem_stat: {}
+    },
   },
 
   effects: {
-    *menuEvent({ pathname }, { put, select }) {
+    * menuEvent({pathname}, {put, select}) {
       let p = pathname;
       if (p === '/') {
         p = yield select((state: { global: { defaultURL: string } }) => state.global.defaultURL);
@@ -117,14 +131,14 @@ const GlobalModel: GlobalModelType = {
         payload: [item.record_id],
       });
     },
-    *fetchUser(_, { call, put }) {
+    * fetchUser(_, {call, put}) {
       const response = yield call(loginService.getCurrentUser);
       yield put({
         type: 'saveUser',
         payload: response,
       });
     },
-    *fetchMenuTree({ pathname }, { call, put }) {
+    * fetchMenuTree({pathname}, {call, put}) {
       const response = yield call(loginService.queryMenuTree);
       const menuData = response.list || [];
       yield put({
@@ -164,45 +178,56 @@ const GlobalModel: GlobalModelType = {
         }),
       ];
     },
+    * fetchBasicSystemInfo({}, {call, put}) {
+      const response = yield call(systemMonitorService.basicInfo);
+      yield put({
+        type: 'saveBasicSystemInfo',
+        payload: response,
+      });
+    },
   },
 
   reducers: {
-    changeLayoutCollapsed(state, { payload }): GlobalModelState {
+    changeLayoutCollapsed(state, {payload}): GlobalModelState {
       return {
         ...state,
         collapsed: payload,
       };
     },
-    changeOpenKeys(state, { payload }) {
+    changeOpenKeys(state, {payload}) {
       return {
         ...state,
         openKeys: payload,
       };
     },
-    changeSelectedKeys(state, { payload }) {
+    changeSelectedKeys(state, {payload}) {
       return {
         ...state,
         selectedKeys: payload,
       };
     },
-    saveUser(state, { payload }) {
-      return { ...state, user: payload };
+    saveUser(state, {payload}) {
+      return {...state, user: payload};
     },
-    saveMenuPaths(state, { payload }) {
-      return { ...state, menuPaths: payload };
+    saveMenuPaths(state, {payload}) {
+      return {...state, menuPaths: payload};
     },
-    saveMenuMap(state, { payload }) {
-      return { ...state, menuMap: payload };
+    saveMenuMap(state, {payload}) {
+      return {...state, menuMap: payload};
     },
-    saveMenus(state, { payload }) {
-      return { ...state, menus: payload };
+    saveMenus(state, {payload}) {
+      return {...state, menus: payload};
+    },
+    saveBasicSystemInfo(state, {payload}) {
+      console.log(payload)
+      return {...state, monitor: payload};
     },
   },
 
   subscriptions: {
-    setup({ history }): void {
+    setup({history}): void {
       // Subscribe history(url) change, trigger `load` action if pathname is `/`
-      history.listen(({ pathname, search }): void => {
+      history.listen(({pathname, search}): void => {
         if (typeof window.ga !== 'undefined') {
           window.ga('send', 'pageview', pathname + search);
         }
